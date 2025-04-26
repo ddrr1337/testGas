@@ -3,9 +3,11 @@ require("dotenv").config();
 require("@nomicfoundation/hardhat-verify");
 require("hardhat-deploy");
 
-const SEPOLIA_RPC = process.env.ALCHEMY_RPC;
+
+const BASE_SEPOLIA_RPC = process.env.BASE_SEPOLIA_RPC;
+const BASE_ETHERSCAN_TOKEN = process.env.BASE_ETHERSCAN_TOKEN;
 const PRIVATE_KEY = process.env.PRIVATE_KEY;
-const ETHERSCAN_TOKEN = process.env.ETHERSCAN_TOKEN;
+
 
 module.exports = {
   solidity: {
@@ -13,6 +15,7 @@ module.exports = {
       { version: "0.8.9" },
       { version: "0.6.6" },
       { version: "0.8.25" },
+      { version: "0.8.28" },
     ],
   },
 
@@ -20,15 +23,15 @@ module.exports = {
     // Your API key for Etherscan
     // Obtain one at https://etherscan.io/
     apiKey: {
-      sepolia: ETHERSCAN_TOKEN,
+      base_sepolia: BASE_ETHERSCAN_TOKEN,
     },
     customChains: [
       {
-        network: "sepolia",
-        chainId: 11155111,
+        network: "base_sepolia",
+        chainId: 84532,
         urls: {
-          apiURL: "https://api-sepolia.etherscan.io/api",
-          browserURL: "https://sepolia.etherscan.io/",
+          apiURL: "https://api-sepolia.basescan.org/api",
+          browserURL: "https://sepolia.basescan.org",
         },
       },
     ],
@@ -40,10 +43,10 @@ module.exports = {
     enabled: true,
   },
   networks: {
-    sepolia: {
-      url: SEPOLIA_RPC,
+    base_sepolia: {
+      url: BASE_SEPOLIA_RPC,
       accounts: [PRIVATE_KEY],
-      chainId: 11155111,
+      chainId: 84532,
       blockConfirmations: 1,
       testnet: true,
     },

@@ -3,8 +3,8 @@ const networkConfig = {
     name: "localhost",
   },
 
-  11155111: {
-    name: "sepolia",
+  84532: {
+    name: "base_spolia",
     verify: true,
   },
 };

@@ -2,7 +2,7 @@ require("dotenv").config();
 const { networkConfig } = require("../helper-hardhat-config");
 const { network } = require("hardhat");
 const { verify } = require("../utils/verify");
-const { getGasPrice } = require("../utils/getGasPrice");
+
 
 module.exports = async ({ getNamedAccounts, deployments }) => {
   const { deploy } = deployments;
@@ -12,11 +12,11 @@ module.exports = async ({ getNamedAccounts, deployments }) => {
 
   const gasMultiplier = 1.2;
 
-  await getGasPrice();
+
 
   const constructorArgs = [];
 
-  const verifierDeploy = await deploy("Groth16Verifier", {
+  const testGasDeploy = await deploy("TestGas", {
     from: deployer,
     args: constructorArgs,
     log: true,
@@ -25,17 +25,17 @@ module.exports = async ({ getNamedAccounts, deployments }) => {
   });
 
   console.log(
-    "----------------------- ZK VERIFIER DEPLOYED --------------------------"
+    "-----------------------  TEST DEPLOYED --------------------------"
   );
 
   const verifyContract = networkConfig[chainId].verify;
 
   if (verifyContract) {
-    await verify(verifierDeploy.address, constructorArgs, chainId);
+    await verify(testGasDeploy.address, constructorArgs, chainId);
     console.log(
       "----------------------- VERIFICATION COMPLETED --------------------------"
     );
   }
 };
 
-module.exports.tags = ["all", "verifier"];
+module.exports.tags = ["all", "testGas"];
